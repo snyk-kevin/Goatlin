@@ -71,7 +71,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val intent = Intent(this, ServerInfoActivity::class.java)
         startActivity(intent)
         return true

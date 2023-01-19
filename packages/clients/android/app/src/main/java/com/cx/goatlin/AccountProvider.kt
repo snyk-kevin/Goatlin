@@ -26,7 +26,7 @@ class AccountProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        this.database = DatabaseHelper(context)
+        this.database = DatabaseHelper(context!!)
         return true
     }
 
@@ -49,13 +49,13 @@ class AccountProvider : ContentProvider() {
         val cursor = queryBuilder.query(this.database.readableDatabase,
                 projection, selection, selectionArgs, null, null,
                 sortOrder)
-        cursor.setNotificationUri(context.contentResolver,
+        cursor.setNotificationUri(context!!.contentResolver,
                 uri)
         return cursor
 
     }
 
-    override fun insert(uri: Uri, values: ContentValues): Uri? {
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
         val uriType = sURIMatcher.match(uri)
 
         val sqlDB = this.database.writableDatabase
@@ -65,7 +65,7 @@ class AccountProvider : ContentProvider() {
             ACCOUNTS -> id = sqlDB.insert(ACCOUNTS_TABLE, null, values)
             else -> throw IllegalArgumentException("Unknown URI: " + uri)
         }
-        context.contentResolver.notifyChange(uri, null)
+        context!!.contentResolver.notifyChange(uri, null)
         return Uri.parse(ACCOUNTS_TABLE + "/" + id)
     }
 

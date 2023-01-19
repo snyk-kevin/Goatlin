@@ -20,8 +20,8 @@ class ServerInfoActivity : AppCompatActivity() {
 
         val prefs = applicationContext.getSharedPreferences(applicationContext.packageName,
                 Context.MODE_PRIVATE)
-        this.serverIPAddress = prefs!!.getString("ip_address","127.0.0.1")
-        this.serverPort = prefs!!.getString("port","8080")
+        this.serverIPAddress = prefs!!.getString("ip_address","127.0.0.1").toString()
+        this.serverPort = prefs!!.getString("port","8080").toString()
 
         findViewById<EditText>(R.id.IPAddress).setText(this.serverIPAddress)
         findViewById<EditText>(R.id.port).setText(this.serverPort)

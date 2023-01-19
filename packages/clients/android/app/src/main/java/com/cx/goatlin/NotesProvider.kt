@@ -25,7 +25,7 @@ class NotesProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        this.database = DatabaseHelper(context)
+        this.database = DatabaseHelper(context!!)
         return true
     }
 
@@ -47,13 +47,13 @@ class NotesProvider : ContentProvider() {
         val cursor = queryBuilder.query(this.database.readableDatabase,
                 projection, selection, selectionArgs, null, null,
                 sortOrder)
-        cursor.setNotificationUri(context.contentResolver,
+        cursor.setNotificationUri(context!!.contentResolver,
                 uri)
         return cursor
 
     }
 
-    override fun insert(uri: Uri, values: ContentValues): Uri? {
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
         val uriType = sURIMatcher.match(uri)
 
         val sqlDB = this.database.writableDatabase
@@ -63,7 +63,7 @@ class NotesProvider : ContentProvider() {
             NOTES -> id = sqlDB.insert(NotesProvider.NOTES_TABLE, null, values)
             else -> throw IllegalArgumentException("Unknown URI: " + uri)
         }
-        context.contentResolver.notifyChange(uri, null)
+        context!!.contentResolver.notifyChange(uri, null)
         return Uri.parse(NotesProvider.NOTES_TABLE + "/" + id)
     }
 

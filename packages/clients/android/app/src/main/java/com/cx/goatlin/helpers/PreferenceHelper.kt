@@ -13,7 +13,7 @@ object PreferenceHelper {
     }
 
     public fun getString(key: String, default: String?): String {
-        return sharedPreferences.getString(key, default)
+        return sharedPreferences.getString(key, default).toString()
     }
 
     public fun getInt(key: String, default: Int = -1): Int {
